@@ -1,0 +1,40 @@
+.home{
+  height: calc(100vh);
+  background: #10aeb5;
+  h1{
+    color: #ffffff;
+    text-align: center;
+    padding-top: 40px;
+  }
+  .wrap{
+    padding: 20px 20px 50px;
+    width: 800px;
+    border-radius: 10px;
+    background: white;
+    margin: 0 auto;
+    .nav{
+      border-bottom: 1px solid lightgray;
+      margin-bottom: 30px;
+      line-height: 50px;
+      a{
+        display: inline-block;
+        width: 25%;
+        text-align: center;
+        color: black;
+        font-size: 18px;
+        //a 标签和class在同一级用&
+        &.checked{
+          color:lightseagreen ;
+          font-weight: bold;
+        }
+      }
+    }
+    p{
+      color: lightgray;
+    }
+    .nav-link{
+      display: inline-block;
+      margin-top: 30px;
+    }
+  }
+}
