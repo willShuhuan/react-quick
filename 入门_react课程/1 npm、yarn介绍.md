@@ -1,5 +1,13 @@
 # 腾讯课堂react入门课程
 #### [课程地址](https://www.bilibili.com/video/BV1hE411c7L1?p=2)
+完整学习笔记：    
+[完整代码戳git](https://github.com/willShuhuan/react-quick)    
+
+[React第一篇 npm、yarn介绍](https://juejin.im/post/5ec02d546fb9a0436a7c76d5)     
+[React第二篇 React语法](https://juejin.im/post/5ec02dbe5188256d545feb24)     
+[React第三篇 单页应用开发](https://juejin.im/post/5ec02eb95188256da20e806d)     
+[React第四篇 路由&Hooks](https://juejin.im/post/5ec02f1af265da7ba65f90fb)     
+[React第五篇 综合应用（登录+列表）](https://juejin.im/post/5ec030666fb9a0433a190fd4)
 
 ## Node
 Node.js 是一个基于Chrome V8引擎的javaScript运行环境，相当于一个看不见的黑盒子（没有界面）    
