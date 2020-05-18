@@ -11,7 +11,7 @@ import DemoLogin from "./pages/demo/login";
 import DemoHome from "./pages/demo/home";
 
 /**
- * @Description: 路由
+ * @Description: 路由的应用
  * @author dongshuhuan
  * @date 2020-05-16
  */
