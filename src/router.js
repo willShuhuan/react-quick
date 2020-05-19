@@ -9,6 +9,10 @@ import NoMatch from "./pages/simplerouter/404";
 import DemoApp from "./pages/demo/demoapp";
 import DemoLogin from "./pages/demo/login";
 import DemoHome from "./pages/demo/home";
+import ToDoList from "./reduxdemo/reduxdemo";
+import {ProviderTodoList2} from "./reactreduxdemo/providerreactredux";
+
+console.log("ProviderTodoList2=="+ProviderTodoList2)
 
 /**
  * @Description: 路由的应用
@@ -43,6 +47,11 @@ export default function IRouter(){
             <Route path = "/demo" component={DemoApp}/>
             <Route path = "/demologin" component={DemoLogin}/>
             <Route path = "/demohome" component={DemoHome}/>
+
+            {/*  ---------------------------------redux----------------------------------  */}
+            <Route path = "/redux" component={ToDoList}/>
+            {/*  ---------------------------------react redux----------------------------------  */}
+            <Route path = "/reactredux" component={ProviderTodoList2}/>
 
 
             {/*404* 如果都没匹配到  输入http://localhost:3000/#/goods等不存在的路径即可看到效果 */}

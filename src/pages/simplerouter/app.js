@@ -24,9 +24,18 @@ export default function App() {
         <h1>欢迎来到React的世界</h1>
         {/*Link的使用*/}
         {/*如果是HashRouter  浏览器地址栏输入http://localhost:3000/#/login#/即可跳转到登录页 */}
-        <Link to="/login">点击跳转到登录页</Link>
+        <Link to="/login">简单应用：点击跳转到登录页</Link>
         <br/>
-        <Link to="/home">点击跳转到主页面</Link>
+        <Link to="/home">简单应用：点击跳转到主页面</Link>
+        <br/>
+        <Link to="/detail/:goodsId/">简单应用：点击跳转商品详情</Link>
+        <br/>
+        <Link to="/demo">点击跳转【登录+列表】综合应用案例</Link>
+        <br/>
+        <Link to="/redux">点击跳转redux</Link>
+        <br/>
+        <Link to="/reactredux">点击跳转react redux</Link>
+        <br/>
         <br/>
         {/*useState*/}
         <p>
