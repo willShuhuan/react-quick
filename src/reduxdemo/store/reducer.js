@@ -1,4 +1,4 @@
-import {INPUTCHANGE,ADD_ITEM,DELETE_ITEM} from './action-types'
+import {INPUTCHANGE,ADD_ITEM,DELETE_ITEM,GET_LIST} from './action-types'
 
 /**
  * @Description:
@@ -36,6 +36,13 @@ export default (state=defaultState,action)=>{
     if (action.type===DELETE_ITEM){
         let newState = JSON.parse(JSON.stringify(state))
         newState.list.splice(action.index,1)
+        return newState
+    }
+    if (action.type===GET_LIST){
+        console.log('网络请求')
+        let newState = JSON.parse(JSON.stringify(state))
+        const data = action.data
+        newState.list = [...newState.list,...data]
         return newState
     }
     return state
