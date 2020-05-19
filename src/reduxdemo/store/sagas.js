@@ -1,4 +1,4 @@
-import {takeEvery,put} from 'redux-saga'
+import {takeEvery,put} from 'redux-saga/effects'
 import {GET_MY_LIST} from './action-types'
 import axios from "axios";
 import {getListAction} from "./action-creators";
@@ -18,7 +18,6 @@ function* getList() {
     const res = yield axios.get('todolist.json');
     const action = getListAction(res.data.data)
     yield put(action)
-
 
 }
 
