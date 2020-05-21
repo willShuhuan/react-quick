@@ -61,7 +61,7 @@ const TodoList2 =(props)=>{
     </div> );
 }
 
-//连接器映射关系
+//连接器映射关系 组件状态映射
 const stateToProps = (state) =>{
     return {
         inputValue:state.inputValue,
@@ -69,6 +69,7 @@ const stateToProps = (state) =>{
     }
 }
 
+//派发函数
 const dispatchToProps = (dispatch) =>{
     return {
         inputChange(e){

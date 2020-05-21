@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <title>JavaScript Demo</title>
+    <script src="out.js"></script>
+    <script>
+
+        function displayDate(){
+            document.getElementById('demo').innerHTML=  Date();
+        }
+
+        function changeButtonColor() {
+            let element =document.getElementById('button');
+            element.style.color="#FF850D"
+        }
+
+        function changeImage(img) {
+            console.log(img.src);
+            img.src =  img.src.match("logo512.png")?"../../public/logo192.png":"../../public/logo512.png";
+        }
+        
+        function verifyInput() {
+            let x =document.getElementById('input').value;
+            if(isNaN(x)||x.replace(/(^\s*)|(\s*$)/g,"")==""){
+                alert("不是数字");
+            }else {
+                alert("是数字")
+            }
+        }
+
+        function windowAlert() {
+            a = 5;
+            b = 10;
+            window.alert("5+10="+(a+b))
+        }
+
+        function forArray(arr) {
+            arr = document.getElementById("array").innerHTML;
+            console.log(arr)
+            var a = '';
+            for (let i = 0; i < arr.length; i++) {
+                a += arr[i];
+            }
+            alert(a)
+        }
+        function initArray() {
+            var cars = new Array();
+            cars[0] = "Saab";
+            cars[1] = "Volvo";
+            cars[2] = "BMW";
+
+            for (var i=0;i<cars.length;i++) {
+                document.write(cars[i] + "<br>");
+            }
+        }
+
+        function getObject() {
+            let obj = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+            let ele = document.getElementById('object');
+            ele.value = "姓名="+obj.firstName+"·"+obj.lastName;
+        }
+
+        function compute(x,y) {
+            alert(x*y);
+        }
+
+        function multiNumber(){
+            var x,y,z=1;
+            //如果重新声明 JavaScript 变量，该变量的值不会丢失：
+            var carname="Volvo";
+            var carname;
+            alert("x=="+x+",y=="+y+",z=="+z+"\ncarname=="+carname)
+        }
+        
+        function getType() {
+            var str = '';
+            var x;               // x 为 undefined
+            x = 5;           // 现在 x 为数字
+            str += "x=5时的类型为"+typeof x;
+            x = "John";      // 现在 x 为字符串
+            str += "\n x=john时的类型为"+typeof x;
+            alert(str)
+        }
+        
+        function createObject() {
+            var carname=new String;
+            var x=      new Number;
+            var y=      new Boolean;
+            var cars=   new Array;
+            var person= new Object;
+            // var carname;
+            // var x;
+            // var y;
+            // var cars;
+            // var person;
+            alert("carname=="+carname+
+                  " ,\nx="+x+
+                " ,\ny="+y+
+                " ,\ncars="+cars+
+                " ,\nperson="+person
+            )
+        }
+        
+        function objectMethod() {
+            var person = {
+                firstName: "John",
+                lastName : "Doe",
+                id : 5566,
+                fullName : function()
+                {
+                    // alert(this.firstName + " " + this.lastName);
+                    return this.firstName + " " + this.lastName;
+                }
+            };
+            document.getElementById("objectMethod").value = person.fullName();
+        }
+
+        var global = "全局变量";
+        function globalObject() {
+            var local = "\n局部变量";
+            alert(global+local)
+        }
+
+
+
+    </script>
+</head>
+<body >
+
+    <h3 >javaScript 1</h3>
+
+    <div class="container">
+
+        <div class="table">
+            <p id="demo">这是日期</p>
+            <button type="button" onclick="displayDate()">显示日期</button>
+
+            <script>
+                document.write("<h4>这是用js写的一个标题</h4>")
+            </script>
+
+            <button onclick="alert('标题哦')">点我Alert</button><br/><br/>
+
+            <button id="button" onclick="changeButtonColor()">点我改变按钮颜色</button><br/><br/>
+
+            <img  onclick="changeImage(this)" src="../../public/logo192.png" ><br/>
+            <p >点击改变图片</p><br/>
+
+            <input id="input" type="text" /><button onclick="verifyInput()">验证数字输入</button><br/><br/>
+
+            <button  onclick="outJs()">外部js调用</button><br/><br/>
+
+        </div>
+
+        <div class="table">
+            <button  onclick="windowAlert()">Window Alert</button><br/>
+
+            <br/>
+            <b >数字（Number）字面量 可以是整数或者是小数，或者是科学计数(e):   </b>
+            <b id="number"></b>
+            <script>
+                document.getElementById("number").innerHTML = 123e5;
+            </script>
+
+            <br/>
+            <br/>
+            <b >数组赋值</b>
+            <b id="array">数组赋值:</b><br/>
+            <button onclick="forArray()">数组取值</button><br/>
+            <button onclick="initArray()">数组创建</button>
+            <script>
+                var arr = [1,2,3,45,56];
+                document.getElementById("array").innerHTML = arr;
+            </script>
+
+            <br/>
+            <br/>
+            <input id="object"/>
+            <button onclick="getObject()">获取对象</button>
+
+            <br/>
+            <br/>
+            <button onclick="compute(2,5)">函数计算</button>
+
+            <br/>
+            <br/>
+            <b >一条语句，多个变量 var x,y,z=1;x,y为undefined，z为1;</b><br/>
+            <b >var lastname="Doe", age=30, job="carpenter";</b><br/>
+            <button onclick="multiNumber()">测一下</button>
+
+            <p>JavaScript 拥有动态类型。这意味着相同的变量可用作不同的类型：
+                <br/>var x;               // x 为 undefined
+                <br/>var x = 5;           // 现在 x 为数字
+                <br/>var x = "John";      // 现在 x 为字符串
+                <br/><button onclick="getType()">测一下</button> 
+            </p>
+
+
+            <button onclick="createObject()">创建对象,如果声明的时候不赋值，都是undefined，这与java不同</button>
+
+        </div>
+
+        <div class="table">
+            <input id="objectMethod"/>
+            <button onclick="objectMethod()">对象方法</button>
+
+            <br/>
+            <br/>
+            <p>局部 JavaScript 变量: 在 JavaScript 函数内部声明的变量（使用 var）是局部变量，所以只能在函数内部访问它。（该变量的作用域是局部的）。
+                <br/>全局 JavaScript 变量: 在函数外声明的变量是全局变量，网页上的所有脚本和函数都能访问它。
+                <br/><button onclick="globalObject()">测一下</button>
+            </p>
+        </div>
+
+
+    </div>
+
+
+    
+
+</body>
+</html>

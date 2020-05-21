@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    margin: 20px;
+    font-size: 14px;
+}
+
+.table{
+    width: 30%;
+    margin: 5px;
+    border: darkslategrey solid 1px;
+    padding: 20px;
+}
+button,input{
+    width: auto;
+    height: 36px;
+}
+h3{
+    text-align: center;
+}
