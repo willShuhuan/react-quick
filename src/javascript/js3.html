@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <title>js3</title>
+    <script>
+        function myFunction() {
+            var x, text;
+            x = document.getElementById("numb").value;
+            // 如果输入的值 x 不是数字或者小于 1 或者大于 10，则提示错误 Not a Number or less than one or greater than 10
+            if (isNaN(x) || x < 1 || x > 10) {
+                text = "输入错误";
+            } else {
+                text = "输入正确";
+            }
+            document.getElementById("demo").innerHTML = text;
+        }
+
+        function validateForm(){
+            var x=document.forms["myForm"]["fname"].value;
+            if (x==null || x==""){
+                alert("姓必须填写");
+                return false;
+            }
+        }
+
+        function myFunction2() {
+            var txt = "";
+            var inpObj = document.getElementById("id1");
+            if(!isNumeric(inpObj.value)) {
+                txt = "你输入的不是数字";
+            } else if (inpObj.validity.rangeUnderflow) {
+                txt = "输入的值太小了";
+            } else {
+                txt = "输入正确";
+            }
+            document.getElementById("demo2").innerHTML = txt;
+        }
+        // 判断输入是否为数字
+        function isNumeric(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+
+        function getValue(){
+            var a,b,c;
+            a = void ( b = 5, c = 7 );
+            alert('a = ' + a + ' b = ' + b +' c = ' + c );
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container">
+
+
+        <div class="table">
+            <b>正则表达式</b>
+            <pre>语法：/正则表达式主体/修饰符(可选)
+var str = document.getElementById("demo").innerHTML;
+var txt = str.replace(/microsoft/i,"Runoob");//正则
+//或 replace()替换
+var txt = str.replace("Microsoft","Runoob");
+// g全局匹配
+var str = document.getElementById("demo").innerHTML;
+var txt = str.replace(/o/g,"123"); //Visit Micr123s123ft!
+document.getElementById("demo").innerHTML = txt;
+            </pre>
+
+            <br/>
+            <b>Undefined 不是 Null</b>
+            <p>在 JavaScript 中, null 用于对象, undefined 用于变量，属性和方法。
+                对象只有被定义才有可能为 null，否则为 undefined。</p>
+            <pre>//错误的使用方式：
+if (myObj !== null && typeof myObj !== "undefined")
+//正确的方式是我们需要先使用 typeof 来检测对象是否已定义：
+if (typeof myObj !== "undefined" && myObj !== null)</pre>
+
+            <br/>
+            <b>程序块作用域</b>
+            <pre>for (var i = 0; i < 10; i++) {
+// some code
+}
+return i;//返回10
+</pre>
+
+            <b>表单验证:  请输入 1 到 10 之间的数字</b><br/>
+            <input id="numb">
+            <button type="button" onclick="myFunction()">提交</button>
+            <b id="demo"></b>
+
+
+        </div>
+
+        <div class="table">
+            <b>表单提交验证</b>
+            <form name="myForm" action="test.html" onsubmit="return validateForm()" method="post">
+                姓: <input type="text" name="fname">
+                <input type="submit" value="提交">
+            </form>
+            <input id="id1" type="number" min="100" required>
+            <button onclick="myFunction2()">验证是否大于100</button>
+            <p id="demo2"></p>
+
+            <b>JavaScript this 关键字</b>
+            <pre>在方法中，this 表示该方法所属的对象。
+如果单独使用，this 表示全局对象。
+在函数中，this 表示全局对象。
+在函数中，在严格模式下，this 是未定义的(undefined)。
+在事件中，this 表示接收事件的元素。
+类似 call() 和 apply() 方法可以将 this 引用到任何对象。
+
+//显式函数绑定
+var person1 = {
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+}
+var person2 = {
+  firstName:"John",
+  lastName: "Doe",
+}
+var x = person1.fullName.call(person2);
+document.getElementById("demo").innerHTML = x; //John Doe</pre>
+
+            <b>Json</b>
+            <pre>var text = '{ "sites" : [' +
+    '{ "name":"Runoob" , "url":"www.runoob.com" },' +
+    '{ "name":"Taobao" , "url":"www.taobao.com" } ]}';
+obj = JSON.parse(text);
+document.getElementById("demo").innerHTML =
+        obj.sites[1].name + " " + obj.sites[1].url;</pre>
+            <p>JSON.parse()：用于将一个 JSON 字符串转换为 Json 对象<br/>
+                JSON.stringify()：用于将 Json 值转换为 JSON 字符串</p>
+
+
+
+        </div>
+
+        <div class="table">
+            <H3>const和let</H3>
+            <pre>二者都是块级作用域;
+都不能和它所在作用域内的其他变量或函数拥有相同的名称;
+const声明的常量必须初始化，而let声明的变量不用;
+const 定义常量的值不能通过再赋值修改，也不能再次声明，而 let 定义的变量值可以修改；
+var x = 10;// 这里输出 x 为 10
+{  const x = 2；  // 这里输出 x 为 2  }
+// 这里输出 x 为 10</pre>
+            <p>const 的本质: const 定义的变量并非常量，并非不可变，它定义了一个常量引用一个值。使用 const 定义的对象或者数组，其实是可变的。</p>
+            <pre>// 错误写法
+const PI;
+PI = 3.14159265359;
+// 正确写法
+const PI = 3.14159265359;
+
+// 创建常量对象
+const car = {type:"Fiat", model:"500", color:"white"};
+// 修改属性:
+car.color = "red";
+// 添加属性
+car.owner = "Johnson";
+
+//但是我们不能对常量对象重新赋值：
+const car = {type:"Fiat", model:"500", color:"white"};
+car = {type:"Volvo", model:"EX60", color:"red"}; // 错误
+
+            </pre>
+
+            <b>void</b>
+            <pre><a href="javascript:void(0)">单击此处什么也不会发生</a>
+<a href="javascript:void(alert('Warning!!!'))">点我警告!</a>
+<input type="button" value="点我" onclick="getValue();" /></pre>
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>

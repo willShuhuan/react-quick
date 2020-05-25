@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <title>js5</title>
+    <script>
+
+        //确认框
+        function myFunction(){
+            var x;
+            var r=confirm("按下按钮!");
+            if (r==true){
+                x="你按下了\"确定\"按钮!";
+            }
+            else{
+                x="你按下了\"取消\"按钮!";
+            }
+            document.getElementById("demo").innerHTML=x;
+        }
+
+        //提示框
+        function promtTest() {
+            var person=prompt("请输入你的名字","Harry Potter");
+            if (person!=null && person!=="")
+            {
+                x="你好 " + person + "! 今天感觉如何?";
+                document.getElementById("promt").innerHTML=x;
+            }
+        }
+
+        //定时器
+        var myVar;
+        function timer() {
+            myVar=setInterval(function(){myTimer()},1000);
+        }
+        function myTimer(){
+            var d=new Date();
+            var t=d.toLocaleTimeString();
+            document.getElementById("timer").innerHTML=t;
+        }
+        function stopTimer() {
+            clearInterval(myVar);
+        }
+
+        //cookie
+        function setCookie(cname,cvalue,exdays){
+            var d = new Date();
+            d.setTime(d.getTime()+(exdays*24*60*60*1000));
+            var expires = "expires="+d.toGMTString();
+            document.cookie = cname+"="+cvalue+"; "+expires;
+        }
+        function getCookie(cname){
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+            }
+            return "";
+        }
+        function checkCookie(){
+            var user=getCookie("username");
+            if (user!=""){
+                alert("欢迎 " + user + " 再次访问");
+            }
+            else {
+                user = prompt("请输入你的名字:","");
+                if (user!="" && user!=null){
+                    setCookie("username",user,30);
+                }
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+    <div class="container">
+
+        <div class="table">
+            <b> Number 对象</b>
+            <pre>var x = 123;
+var y = new Number(123);
+typeof(x) // 返回 Number
+typeof(y) // 返回 Object</pre>
+
+            <b>字符串（String） 对象</b>
+            <pre>//match()函数用来查找字符串中特定的字符，
+//并且如果找到的话，则返回这个字符。
+var str="Hello world!";
+document.write(str.match("world") + "<br>");</pre>
+
+            <b>数组</b>
+            <pre>//常规方式
+var myCars=new Array();
+myCars[0]="Saab";
+myCars[1]="Volvo";
+myCars[2]="BMW";
+//简洁方式
+var myCars=new Array("Saab","Volvo","BMW");
+//字面
+var myCars=["Saab","Volvo","BMW"]; </pre>
+
+            <b>确认弹窗：点击按钮，显示确认框</b><br/>
+            <button onclick="myFunction()">点我</button>
+            <p id="demo"></p>
+
+            <b>提示框</b><button onclick="promtTest()">点击弹出</button>
+            <div id="promt"></div>
+
+            <b>JavaScript 计时事件</b><button onclick="timer()">点击计时</button><button onclick="stopTimer()">点击停止</button>
+            <div id="timer"></div>
+
+        </div>
+
+        <div class="table">
+            <H4>Window</H4>
+            <p>location.hostname 返回 web 主机的域名<br/>
+                location.pathname 返回当前页面的路径和文件名<br/>
+                location.port 返回 web 主机的端口 （80 或 443）<br/>
+                location.protocol 返回所使用的 web 协议（http: 或 https:）</p>
+            <pre>//location.href 属性返回当前页面的 URL。
+document.write(location.href);
+//添加新的文档
+function newDoc(){
+    window.location.assign("https://www.runoob.com")
+}</pre>
+            <p>window.location.assign(url) ： 加载 URL 指定的新的 HTML 文档。 就相当于一个链接，跳转到指定的url，当前页面会转为新页面内容，可以点击后退返回上一个页面。<br/>
+                window.location.replace(url) ： 通过加载 URL 指定的文档来替换当前文档 ，这个方法是替换当前窗口页面，前后两个页面共用一个窗口，所以是没有后退返回上一页的</p>
+
+            <b>Window History</b>
+            <pre>function goBack()
+{
+    window.history.back()
+}
+unction goForward()
+{
+    window.history.forward()
+}
+            </pre>
+
+
+
+        </div>
+
+
+        <div class="table">
+
+            <b>Window Navigator</b>
+
+        <pre>
+浏览器代号: " + navigator.appCodeName ;
+浏览器名称: " + navigator.appName ;
+浏览器版本: " + navigator.appVersion ;
+启用Cookies: " + navigator.cookieEnabled ;
+硬件平台: " + navigator.platform ;
+用户代理: " + navigator.userAgent ;
+用户代理语言: " + navigator.systemLanguage ;
+ </pre>
+            <div id="example"></div>
+            <script>
+                txt = "浏览器代号: " + navigator.appCodeName + "<br/>";
+                txt+= "浏览器名称: " + navigator.appName + "<br/>";
+                txt+= "浏览器版本: " + navigator.appVersion + "<br/>";
+                txt+= "启用Cookies: " + navigator.cookieEnabled + "<br/>";
+                txt+= "硬件平台: " + navigator.platform + "<br/>";
+                txt+= "用户代理: " + navigator.userAgent + "<br/>";
+                txt+= "用户代理语言: " + navigator.systemLanguage + "<br/>";
+                document.getElementById("example").innerHTML=txt;
+            </script>
+
+            <br/>
+            <b>Cookie</b><br/>
+            <button onclick="checkCookie()">点击查看</button>
+
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>

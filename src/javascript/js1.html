@@ -7,6 +7,31 @@
     <script src="out.js"></script>
     <script>
 
+
+        var var1 = 1; // 不可配置全局属性
+        var2 = 2; // 没有使用 var 声明，可配置全局属性
+        function variable() {
+            console.log(this.var1); // 1
+            console.log(window.var1); // 1
+
+            delete var1; // false 无法删除
+            console.log(var1); //1
+
+            delete var2;
+            console.log(delete var2); // true
+            console.log(var2); // 已经删除 报错变量未定义
+        }
+
+
+        function returnSth() {
+            alert(retrun());
+        }
+
+        function retrun() {
+            var x=5;
+            return x;
+        }
+
         function displayDate(){
             document.getElementById('demo').innerHTML=  Date();
         }
@@ -59,7 +84,7 @@
         function getObject() {
             let obj = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
             let ele = document.getElementById('object');
-            ele.value = "姓名="+obj.firstName+"·"+obj.lastName;
+            ele.value = "姓名="+obj.firstName+"·"+obj["lastName"];
         }
 
         function compute(x,y) {
@@ -129,8 +154,6 @@
 </head>
 <body >
 
-    <h3 >javaScript 1</h3>
-
     <div class="container">
 
         <div class="table">
@@ -197,6 +220,8 @@
                 <br/><button onclick="getType()">测一下</button> 
             </p>
 
+            <br/>
+
 
             <button onclick="createObject()">创建对象,如果声明的时候不赋值，都是undefined，这与java不同</button>
 
@@ -212,7 +237,32 @@
                 <br/>全局 JavaScript 变量: 在函数外声明的变量是全局变量，网页上的所有脚本和函数都能访问它。
                 <br/><button onclick="globalObject()">测一下</button>
             </p>
+
+            <br>
+            <button onclick="returnSth()">函数返回值</button>
+
+            <br/>
+            <br/>
+            <p>向未声明的 JavaScript 变量分配值<br/>
+                var var1 = 1; // 不可配置全局属性<br/>
+                var2 = 2; // 没有使用 var 声明，可配置全局属性<br/>
+                console.log(this.var1); // 1<br/>
+                console.log(window.var1); // 1<br/>
+                delete var1; // false 无法删除<br/>
+                console.log(var1); //1<br/>
+                delete var2;<br/>
+                console.log(delete var2); // true<br/>
+                console.log(var2); // 已经删除 报错变量未定义</p>
+            <button onclick="variable()">测一下</button>
+
+
+
+
+
         </div>
+
+
+
 
 
     </div>

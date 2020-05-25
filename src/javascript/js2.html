@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <title>js2</title>
+    <script>
+
+        function equalsTest() {
+            var x = 5;
+            console.log(x==5);//true
+            console.log(x=="5");//true
+            console.log(x===5);//true
+            console.log(x==="5");//false
+        }
+
+        function charTest() {
+            var x = "John";              // x是一个字符串
+            var y = new String("John");  // y是一个对象
+            debugger;
+            document.getElementById("chartest").innerHTML =typeof x + " " + typeof y+" "+(x === y);
+            console.log(typeof null)
+
+        }
+
+        function forIn() {
+            var txt = '';
+            var x ;
+            var person={fname:"John",lname:"Doe",age:25};
+            for (x in person)  // x 为属性名
+            {
+                txt=txt + person[x];
+            }
+            alert(txt)
+        }
+
+
+    </script>
+</head>
+<body>
+
+
+    <div class="container">
+
+        <div class="table">
+            <div>局部变量在声明的函数外不可以访问。   如果变量在函数内没有声明（没有使用 var 关键字），该变量为全局变量。
+                <pre>局部变量在函数执行完毕后销毁。
+全局变量在页面关闭后销毁。
+// 此处可调用 carName 变量
+function myFunction() {
+carName = "Volvo";
+// 此处可调用 carName 变量}</pre>
+                </div>
+
+            <br/>
+            <button onclick="this.innerHTML=Date()">js 事件， 现在的时间是?</button>
+
+            <br/>
+            <br/>
+            <b id="chartest">字符串可以是对象(不要创建 String 对象。它会拖慢执行速度，并可能产生其他副作用：)</b>
+            <button onclick="charTest()">字符串</button>
+
+            <br/>
+            <br/>
+            <b onclick="equalsTest()">等于== 和 绝对等于===</b><br/>
+            <pre>
+            var x = 5;
+            x==5; //true
+            x=="5"; //true
+            x===5; //true
+            x==="5"; //false</pre>
+
+            <br/>
+            <button onclick="forIn()">forin循环</button>
+            <pre>
+    //forin循环
+    var person={fname:"John",lname:"Doe",age:25};
+    for (x in person)  // x 为属性名
+    {  txt=txt + person[x];  }
+            </pre>
+
+            <b>TypeOf</b>
+            <pre>
+    typeof "John"                // 返回 string
+    typeof 3.14                  // 返回 number
+    typeof false                 // 返回 boolean
+    typeof [1,2,3,4]             // 返回 object
+    typeof {name:'John', age:34} // 返回 object
+    typeof undefined             // undefined
+    typeof null                  // object
+    null === undefined           // false
+    null == undefined            // true
+    // null 和 undefined 的值相等，但类型不等：
+    // null是一个只有一个值的特殊类型。表示一个空对象引用。
+    //undefined 是一个没有设置值的变量。</pre>
+
+        </div>
+
+        <div class="table">
+
+
+            <b>类型转换</b>
+            <p>在 JavaScript 中有 6 种不同的数据类型：
+                string、
+                number、
+                boolean、
+                object、
+                function、
+                symbol<br/>
+                3 种对象类型：Object
+                Date
+                Array<br/>
+                2 个不包含任何值的数据类型：
+                null
+                undefined
+            </p>
+            <pre>
+    typeof "John"                 // 返回 string
+    typeof 3.14                   // 返回 number
+    typeof NaN                    // 返回 number
+    typeof false                  // 返回 boolean
+    typeof [1,2,3,4]              // 返回 object
+    typeof {name:'John', age:34}  // 返回 object
+    typeof new Date()             // 返回 object
+    typeof function () {}         // 返回 function
+    typeof myCar // 返回 undefined (如果 myCar 没有声明)
+    typeof null                   // 返回 object</pre>
+
+            <b>constructor 属性</b>
+            <pre>
+    "John".constructor    // 返回函数 String()  { [native code] }
+    (3.14).constructor    // 返回函数 Number()  { [native code] }
+    false.constructor     // 返回函数 Boolean() { [native code] }
+    [1,2,3,4].constructor // 返回函数 Array()   { [native code] }
+    {name:'John', age:34}.constructor  // 返回函数 Object()  { [native code] }
+    new Date().constructor     // 返回函数 Date()    { [native code] }
+    function () {}.constructor // 返回函数 Function(){ [native code] }</pre>
+
+            <b>将数字转换为字符串</b>
+            <pre>
+    String(x)         // 将变量 x 转换为字符串并返回
+    String(123)       // 将数字 123 转换为字符串并返回
+    String(100 + 23)  // 将数字表达式转换为字符串并返回
+    //Number 方法 toString() 也是有同样的效果。
+    x.toString()
+    (123).toString()
+    (100 + 23).toString()</pre>
+
+            <b>将布尔值转换为字符串</b>
+            <pre>
+    String(false)        // 返回 "false"
+    String(true)         // 返回 "true"
+    //Boolean 方法 toString() 也有相同的效果。
+    false.toString()     // 返回 "false"
+    true.toString()      // 返回 "true"</pre>
+
+
+        </div>
+
+        <div class="table">
+
+            <b>将日期转换为字符串</b>
+            <pre>String(new Date().getDay()) </pre>
+
+            <b>将字符串转换为数字</b>
+            <pre>Number("3.14")    // 返回 3.14
+Number("3.14").parseInt()    // 返回 3
+Number(" ")       // 返回 0
+Number("")        // 返回 0
+Number("99 88")   // 返回 NaN</pre>
+
+            <b>一元运算符 +</b>
+            <pre>var y = "5";      // y 是一个字符串
+var x = + y;      // x 是一个数字
+var y = "John";   // y 是一个字符串
+var x = + y;      // x 是一个数字 (NaN)</pre>
+
+            <b>布尔值转换为数字</b>
+            <pre>Number(false)     // 返回 0
+Number(true)      // 返回 1</pre>
+
+            <b>将日期转换为数字</b>
+            <pre>d = new Date();
+Number(d)          // 返回 1404568027739
+d.getTime()        // 返回 1404568027739</pre>
+
+            <b>自动转换类型</b>
+            <pre>5 + null    // 返回 5         null 转换为 0
+"5" + null  // 返回"5null"   null 转换为 "null"
+"5" + 1     // 返回 "51"      1 转换为 "1"
+"5" - 1     // 返回 4         "5" 转换为 5</pre>
+
+            <b>自动转换为字符串</b>
+            <pre>document.getElementById("demo").innerHTML = myVar;
+myVar = {name:"Fjohn"}  // toString 转换为 "[object Object]"
+myVar = [1,2,3,4]       // toString 转换为 "1,2,3,4"
+myVar = new Date()      // toString 转换为 "Fri Jul 18 2014 09:08:55 GMT+0200"
+myVar = 123             // toString 转换为 "123"
+myVar = true            // toString 转换为 "true"
+myVar = false           // toString 转换为 "false"</pre>
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 .container{
     display: flex;
-    margin: 20px;
+    margin: 10px;
     font-size: 14px;
 }
 
@@ -8,7 +8,7 @@
     width: 30%;
     margin: 5px;
     border: darkslategrey solid 1px;
-    padding: 20px;
+    padding: 10px 20px;
 }
 button,input{
     width: auto;
@@ -16,4 +16,9 @@ button,input{
 }
 h3{
     text-align: center;
+}
+pre{
+    padding: 5px;
+    background: #F6F6F6;
+    color: gray;
 }
