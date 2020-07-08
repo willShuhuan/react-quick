@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组2</title>
+    <script>
+
+        let arr = [1,2,3,4,5];
+        //1.如何清空数组 3种方式
+        // arr = [];
+        // arr.length = 0;//会自动清空数组
+        // arr.splice(0,arr.length);
+
+        // 2.如何将数组转换为字符串
+        let str = arr.toString();
+        console.log(str);
+        console.log(typeof str);//string
+
+        // 3.如何将数组转换成指定格式字符串
+        // join方法默认情况下如果没有传递参数，就是调用toString（） ；
+        let str2 = arr.join();
+        console.log(str2);//1,2,3,4,5
+        console.log(typeof str2);//string
+        // join方法如果传递了参数，就会将传递的参数作为元素和元素的连接符号
+        let str3 = arr.join("+");
+        console.log(str3);//1+2+3+4+5
+
+        // 4.如何将两个数组拼接为一个数组
+        let arr1 = [1,3,5];
+        let arr2 = [2,4,6];
+        //注意点：数组不能够使用加号进行拼接， 如果使用加号进行拼接会先转换成字符串再拼接
+        let res2 = arr1+arr2;
+        console.log(res2);//1,3,52,4,6
+        console.log(typeof res2);//string
+        //注意点：不会修改原有的数组，会生成一个新的数组返回给我们
+        let res3 = arr1.concat(arr2);
+        console.log(res3);//[1, 3, 5, 2, 4, 6]
+
+        //ES6解构方式(推荐)
+        //注意点：扩展运算符在解构赋值中（等号的左边）表示将剩余的数据打包成一个新的数组
+        //扩展运算符在等号右边，那么表示将数组中所有的数据解开，放到所在的位置
+        let res4 = [...arr1,...arr2];//=>  let res = [1,3,5,2,4,6];
+        console.log(res4);//[1, 3, 5, 2, 4, 6]
+
+
+        // 5.如何对数组中的内容进行反转
+        let reverse = arr.reverse();
+        console.log(reverse);//[5,4,3,2,1]
+        //注意点：会修改原有的数组
+        console.log(arr);
+
+        // 6.如何截取数组中指定范围内容
+        arr.reverse();//[1,2,3,4,5]
+        // slice方法是包头不包尾（包含起始位置， 不包含结束的位置）
+        let slice=arr.slice(1,3);
+        console.log(slice);//[2,3]
+        console.log(arr);
+
+        // 7.如何查找元素在数组中的位置
+        // indexOf方法如果找到了指定的元素，就会返回元素对应的位置
+        // indexOf 方法如果没有找到指定的元素，就会返回一1
+        let index = arr.indexOf(3);
+        let index2 = arr.indexOf(6);
+        console.log(index);//2
+        console.log(index2);//-1
+        arr.push(3);//[1,2,3,4,5,3]
+        //注意点： indexOf方法默认是从左至右的查找，一旦找到就会立即停止查找
+        let index3 = arr.indexOf(3);
+        console.log(index3);//2
+        //参数1：需要查找的元素
+        //参数2：从什么位置开始查找
+        let index4 = arr.indexOf(3,4);
+        console.log(index4);//5
+        //注意点： lastIndexOf方法默认是从右至左的查找，一旦找到就会立即停止查找
+        let index5 = arr.lastIndexOf(3);
+        console.log(index5);//5
+
+        // 8.如何判断数组中是否包含某个元素
+        //我们可以通过indexOf和last IndexOf的结果， 判断是否是一1即可
+        let leftIndex = arr.indexOf(8);
+        let rightIndex = arr.lastIndexOf(8);
+        console.log(leftIndex,rightIndex);
+        let contains = arr.includes(8);
+        let contains2 = arr.includes(4);
+        console.log(contains,contains2);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

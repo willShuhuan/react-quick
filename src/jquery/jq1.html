@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery1</title>
+    <style>
+        *{
+            margin: 15px;
+            padding: 0;
+        }
+        div{
+            width: 200px;
+            height: 50px;
+            border: 1px solid #000;
+        }
+        button{
+            padding: 10px;
+        }
+        .box1{
+            width: 200px;
+            height: 60px;
+        }
+        .container{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            margin: 10px;
+            background: #fff;
+            border: 0;
+            font-size: 14px;
+        }
+
+        .table{
+            width: 30%;
+            height: 100%;
+            margin: 5px;
+            border: darkslategrey solid 1px;
+            padding: 10px 20px;
+        }
+        .class1{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .class2{
+            border: 10px solid #000;
+        }
+    </style>
+    <script src="js/jquery-1.12.4.js"></script>
+    <script>
+        //1.抓取元素
+        //原生
+        // window.onload = function (ev) {
+        //     var div1 =  document.getElementsByTagName("div")[0];
+        //     var div2 =  document.getElementsByClassName("box1")[0];
+        //     var div3 =  document.getElementById("box2");
+        //
+        //     //修改背景色
+        //     div1.style.backgroundColor = 'red';
+        //     div2.style.backgroundColor = 'green';
+        //     div3.style.backgroundColor = 'black';
+        //
+        // };
+
+        //jquery方式抓取
+        //入口函数
+        $(function () {
+            var div1 = $("div");//什么也不加，根据标签名抓取
+            var div2 = $(".box1");//. 根据class类名抓取
+            var div3 = $("#box2");//# 根据id抓取
+            // div1.css({
+            //     background:'red'
+            // });
+            div2.css({
+                background:'yellow'
+            });
+            div3.css({
+                background:'blue'
+            });
+
+            var p = '<p>新增的段落</p>';
+            div3.append(p);
+
+        });
+
+        //2 静态方法和实例方法
+        function AClass() {
+
+        }
+        //通过类名创建
+        AClass.staticMethod = function () {
+            alert("静态方法");
+        };
+        AClass.prototype.instanceMethod = function () {
+            alert("实例方法");
+        };
+        function methods() {
+            AClass.staticMethod();
+            var a = new AClass();
+            a.instanceMethod();
+        }
+
+        //3 each遍历
+        //原生
+        function each() {
+            var arr = [1,2,3,4,5];
+            var obj = {0:10,1:20,2:30,3:40,4:50,length:5};
+            //第一个参数: 遍历到的元素
+            //第二个参数: 当前遍历到的索引
+            arr.forEach(function (value,index) {
+                console.log(index,value);
+            });
+            //原生each不能遍历伪数组
+            // obj.forEach(function (value,index) {
+            //     console.log(index,value);
+            // })
+
+            //jquery 方式
+            //第一个参数: 当前遍历到的索引
+            //第二个参数: 遍历到的元素
+            $.each(arr,function (index,value) {
+                console.log(index,value);
+            });
+            //jQuery的each方法是可以遍历伪数组的
+            $.each(obj,function (index,value) {
+                console.log(index,value);
+            })
+        }
+
+        //4 map遍历
+        function map() {
+            var arr = [1,2,3,4,5];
+            var obj = {0:10,1:20,2:30,3:40,4:50,length:5};
+            // 1.利用原生JS的map方法遍历
+            /*
+            第一个参数: 当前遍历到的元素
+            第二个参数: 当前遍历到的索引
+            第三个参数: 当前被遍历的数组
+            注意点:
+            和原生的forEach一样,不能遍历的伪数组
+            */
+            // arr.map(function (value, index, array) {
+            //     console.log(index, value, array);
+            // });
+            // obj.map(function (value, index, array) {
+            //     console.log(index, value, array);
+            // });
+
+            //jquery遍历
+            /*
+            第一个参数: 要遍历的数组
+            第二个参数: 每遍历一个元素之后执行的回调函数
+            回调函数的参数:
+            第一个参数: 遍历到的元素
+            第二个参数: 遍历到的索引
+            注意点:
+            和jQuery中的each静态方法一样, map静态方法也可以遍历伪数组
+            */
+            $.map(arr,function (value,index) {
+                console.log(index,value);
+            });
+            $.map(obj,function (value,index) {
+                console.log(index,value);
+            });
+
+        }
+
+        //5 字符串去空格
+        /*
+        $.trim();
+        作用: 去除字符串两端的空格
+        参数: 需要去除空格的字符串
+        返回值: 去除空格之后的字符串
+        */
+        function trim() {
+            var str = "    lnj    ";
+            var res = $.trim(str);
+            console.log("---"+str+"---");
+            console.log("---"+res+"---");
+        }
+
+        //6 isWindow isArray isFunction
+        function isWindow() {
+            // 真数组
+            var arr = [1, 3, 5, 7, 9];
+            // 伪数组
+            var arrlike = {0:1, 1:3, 2:5, 3:7, 4:9, length:5};
+            // 对象
+            var obj = {"name":"lnj", age:"33"};
+            // 函数
+            var fn = function(){};
+            // window对象
+            var w = window;
+
+            /*
+            $.isWindow();
+            作用: 判断传入的对象是否是window对象
+            返回值: true/false
+            */
+            var res = $.isWindow(w);
+            console.log(res);
+
+            /*
+            $.isArray();
+            作用: 判断传入的对象是否是真数组
+            返回值: true/false
+            */
+            var res = $.isArray(w);
+            console.log(res);
+
+            /*
+            $.isArray();
+            作用: 判断传入的对象是否是一个函数
+            返回值: true/false
+            注意点:
+            jQuery框架本质上是一个函数
+            (function( window, undefined ) {
+             })( window );
+            */
+            var res = $.isFunction(jQuery);
+            console.log(res);
+        };
+
+        // 7 holdReady
+        // $.holdReady(true); //作用: 暂停ready执行
+        // $(document).ready(function () {
+        //     alert("ready");
+        // });
+        // function resumeReady() {
+        //     $.holdReady(false);//恢复执行
+        // }
+
+        //8 内容选择器
+        // :contains(text)
+        // :empty
+        // :has(selector)
+        // :parent
+
+        function contentSelector() {
+            //:empty 作用： 找到既没有文本内容也没有子元素的指定元素
+            var empty = $("div:empty");
+            console.log('内容选择器', empty);
+            //:parent 作用: 找到有文本内容或者子元素的文本内容
+            var parent = $("div:parent");
+            console.log('内容选择器', parent);
+            // contains作用：找到包含指定文本内容的指定元素
+            var contains = $("div:contains('我是div')");
+            console.log('内容选择器', contains);
+            // has作用：找到包含指定子元素的指定元素
+            var has = $("div:has('span')");
+            console.log('内容选择器', has);
+        };
+
+        //9 属性和属性节点
+        function attr() {
+            /*
+            1.什么是属性?
+            对象身上保存的变量就是属性
+            2.如何操作属性?
+            对象.属性名称 = 值;
+            对象.属性名称;
+            对象["属性名称"] = 值;
+            对象["属性名称"];
+
+            3.什么是属性节点?
+            <span name = "it666"></span>
+            在编写HTML代码时,在HTML标签中添加的属性就是属性节点
+            在浏览器中找到span这个DOM元素之后, 展开看到的都是属性
+            在attributes属性中保存的所有内容都是属性节点
+
+            4.如何操作属性节点?
+            DOM元素.setAttribute("属性名称", "值");
+            DOM元素.getAttribute("属性名称");
+
+            5.属性和属性节点有什么区别?
+            任何对象都有属性, 但是只有DOM对象才有属性节点
+
+            */
+
+            function Person() {
+
+            }
+            var p = new Person();
+            p.name = 'dsh';
+            p['sex'] = 'male';
+            console.log(p);
+            var span = document.getElementsByTagName("span")[2];
+            console.log(span);
+            span.setAttribute("name", "18");
+            console.log(span);
+
+        }
+        
+        //10 jquery 属性方法attr
+        function attrj() {
+            /*
+            1.attr(name|pro|key,val|fn)
+            作用: 获取或者设置属性节点的值
+            可以传递一个参数, 也可以传递两个参数
+            如果传递一个参数, 代表获取属性节点的值
+            如果传递两个参数, 代表设置属性节点的值
+
+            注意点:
+            如果是获取:无论找到多少个元素, 都只会返回第一个元素指定的属性节点的值
+            如果是设置:找到多少个元素就会设置多少个元素
+            如果是设置: 如果设置的属性节点不存在, 那么系统会自动新增
+
+            2.removeAttr(name)
+            删除属性节点
+
+            注意点:
+            会删除所有找到元素指定的属性节点
+
+           */
+
+            // console.log($("#attr").attr("class"));
+            $("#attr").attr("class","itstyle");
+            $("#attr").attr("abc","123");
+
+        }
+        function removeattr() {
+            $("#attr").removeAttr("class name");
+        }
+
+        //11 jquery 属性方法prop
+        function propj() {
+            /*
+            1.prop方法
+            特点和attr方法一致
+            2.removeProp方法
+            特点和removeAttr方法一致
+            */
+            $("span").eq(2).prop("demo", "it666");
+            console.log( $("span").eq(2).prop("demo"));
+
+            /*
+            注意点:
+            prop方法不仅能够操作属性, 他还能操作属性节点
+
+            官方推荐在操作属性节点时,具有 true 和 false 两个属性的属性节点，如 checked, selected 或者 disabled 使用prop()，其他的使用 attr()
+            */
+            console.log($("span").eq(2).prop("class"));
+            $("span").eq(2).prop("class", "box");
+
+            console.log($("input").prop("checked")); // true / false
+            console.log($("input").attr("checked")); // checked / undefined
+        }
+        function removeprop() {
+            $("span").eq(2).removeProp("demo");
+            console.log( $("span").eq(2).prop("demo"))
+        }
+
+
+        //12 attr prop 练习
+        $(function () {
+            // 1.给按钮添加点击事件
+            var btn = document.getElementById("attrprop");
+            console.log(btn);
+            btn.onclick = function () {
+                // 2.获取输入框输入的内容
+                var intput = document.getElementById("attrinput").value;
+                // 3.修改img的src属性节点的值
+                $("#imgChange").attr("src",intput);
+                // $("#imgChange").prop("src",intput);
+            }
+        })
+        
+        //13 类操作相关
+        /*
+           1.addClass(class|fn)
+           作用: 添加一个类
+           如果要添加多个, 多个类名之间用空格隔开即可
+
+           2.removeClass([class|fn])
+           作用: 删除一个类
+           如果想删除多个, 多个类名之间用空格隔开即可
+
+           3.toggleClass(class|fn[,sw])
+           作用: 切换类
+           有就删除, 没有就添加
+           */
+        function addClass() {
+            $("#changeClass").addClass("class1 class2");
+        }
+        function removeClass() {
+            $("#changeClass").removeClass("class2");
+            // $("#changeClass").removeClass("class2 class1");
+
+        }
+        function changeClass() {
+            $("#changeClass").toggleClass("class2 class1");
+        }
+
+        //14 html text val
+        /*
+            1.html([val|fn])
+            和原生JS中的innerHTML一模一样
+            2.text([val|fn])
+            和原生JS中的innerText一模一样
+            3.val([val|fn|arr])
+            */
+        function setHtml() {
+          $("#setsth").html("<p>pppp<span>span</span></p>");
+        }
+        function getHtml() {
+            console.log($("#setsth").html());
+        }
+        function setText() {
+            $("#setsth").text("<p>pppp<span>span</span></p>>");
+        }
+        function getText() {
+            console.log($("#setsth").text());
+        }
+        function setVal() {
+            $("#inp").val("输入框");
+        }
+        function getVal() {
+            console.log($("#inp").val());
+        }
+        
+        //15 jquery 设置css
+        function setcss() {
+            // 编写jQuery相关代码
+            // 1.逐个设置
+            // $("#cssdiv").css("width", "100px");
+            // $("#cssdiv").css("height", "100px");
+            // $("#cssdiv").css("background", "red");
+
+            // 2.链式设置
+            // 注意点: 链式操作如果大于3步, 建议分开
+            // $("#cssdiv").css("width", "100px").css("height", "100px").css("background", "blue");
+
+            // 3.批量设置
+            $("#cssdiv").css({
+                width: "100px",
+                height: "100px",
+                background: "yellow"
+            });
+
+            // 4.获取CSS样式值
+            console.log($("div").css("background"));;
+        }
+
+
+    </script>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="table">
+
+            <div></div>
+            <div class="box1"></div>
+            <div id="box2"></div>
+            <span>我是span</span><br/>
+            <button onclick="methods()">静态方法和实例方法</button><br/>
+            <button onclick="each()">each遍历</button><br/>
+            <button onclick="map()">map遍历</button><br/>
+            <button onclick="trim()">字符串去空格</button><br/>
+            <button onclick="isWindow()">isWindow isArray isFunction</button><br/>
+            <button onclick="resumeReady()">holdReady恢复</button><br/>
+
+        </div>
+
+        <div class="table">
+            <div></div>
+            <div>我是div</div>
+            <div>他们我是div123</div>
+            <div><span></span></div>
+            <div><p></p></div>
+            <button onclick="contentSelector()">内容选择器</button><br/>
+            <span id="attr" name = "it666">属性节点</span>
+            <button onclick="attr()">原生操作 属性和属性选择器</button><br/>
+            <button onclick="attrj()">jquery attr 属性和属性选择器</button>
+            <button onclick="removeattr()">jquery attr 删除属性</button><br/>
+            <input type="checkbox">
+            <button onclick="propj()">jquery prop </button>
+            <button onclick="removeprop()">jquery prop 删除属性</button><br/>
+
+            <button onclick="setcss()">jquery 操作css</button><br/>
+            <div id="cssdiv"></div>
+
+
+        </div>
+
+        <div class="table">
+            <input id="attrinput" type="text">
+            <button id="attrprop">attr prop 练习 切换图片</button><br>
+            <img id="imgChange" src="https://img.alicdn.com/tfs/TB1tX7EaupyVu4jSZFhXXbBpVXa-190-121.gif" alt=""><br/>
+
+            <button onclick="addClass()">添加类</button>
+            <button onclick="removeClass()">删除类</button>
+            <button onclick="changeClass()">切换类</button>
+            <div id="changeClass"></div><br/>
+
+            <button onclick="setHtml()">设置html</button>
+            <button onclick="getHtml()">获取html</button>
+            <button onclick="setText()">设置text</button>
+            <button onclick="getText()">获取text</button>
+            <button onclick="setVal()">设置value</button>
+            <button onclick="getVal()">获取value</button>
+            <div id="setsth"></div>
+            <input id="inp" type="text">
+
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js6</title>
+    <script>
+
+        // let res = 1>undefined;// 1>NaN false  任何数值跟NaN比较 都是false
+        let res = null==0; //false
+        res = undefined==0;//false
+        res = undefined==null;//true
+        res = NaN==NaN;//true  千万不要使用==判断数据是不是NaN
+        let num = NaN;
+        res = isNaN(num);// true  推荐使用的方式
+        res = 123=="123"//true  只会判断取值是否相等
+        res = 123!="123"//false
+        res = 123 === "123";//false 比较取值和数据类型
+        res = 123 !== "123";//true 比较取值和数据类型
+
+
+        //2.关系运算符的结合性和优先级
+        //关系运算符都是左结合性（从左至右的运算）
+        //关系运算符中> < >= <= 的优先级高于 == != === !==
+
+        //注意点：正是因为关系运算符是左结合性，所以不能利用关系运算符来判断区间
+        res=10>5>3;//等价于 res=true>3;res=1>3;   false
+        res= 10<= 25<=20; //res=true<=20; res=1<=20;     true
+        res = 10==10>0; //res=10==true;res=10==1;    false
+
+        res=!0; //res= !false;   true
+        res=!1; //res= !true;   false
+
+        //A&&B
+        //如果条件A不成立， 那么就返回条件A
+        //如果条件A成立，无论条件B是否成立， 都会返回条件B
+
+        //在逻辑或运算中，如果参与运算的不是布尔类型，返回值有一个特点格式：条件A||条 件B
+        //如果条件A成立，那么就返回条件A
+        //如果条件A不成立，无论条件B是否成立，都会返回条件B
+
+        res=0&&123;     //0
+        res=1&&123;     //123
+        res=null && 123;//123
+        res=1 && null;  //null
+
+        res=0||123;     //123
+        res=1||123;     //1
+        res=0||null;     //null
+        res=1||null;     //1
+
+        //与运算中的逻辑短路问题
+        //由于逻辑与运算的规则是假则假，所以只要条件A是假，那么条件B就不会运算
+        num=1;
+        //  false   ++num不会运算
+        res=(10>20)&& (++num > 0);//false
+        console. log (num) ;//1
+
+        //或运算中的逻辑短路问题
+        res=(10<20)|| (++num > 0);//true
+        console. log (num) ;//1
+
+        //逗号运算符的运算结果是最后一个表达式的结果
+        res = ((1+1),(2+2),(3+3));//6
+
+
+        //练习
+        res=5;
+        res *= 2+2;//res=res*(2+2); *= 赋值运算符优先级小于算数运算符 +
+
+        // let a=5, b, с;
+        // b = a = c;// 从右向左赋值  右结合性
+        // console. log (a, b,c);//undefined undefined undefined
+
+        res=6==6==6;//res=true==6;res=1==6;  //false
+        res = 1 == 6>=3;//let res = 1 == true;res=1==1;   true
+
+        //两者的区别是什么？
+        res=1+1,2+2,3+3;// 2
+        // res =(1 + 1,2+2,3 +3);//6
+
+        //a++与++a
+        let a=5;
+        //6 + 7
+        let res1=++a + ++a;
+        console. log (res1) ;//13
+        //5+ 6
+        a = 5;
+        let res2 = a++ + a++;
+        console. log (res2) ;//11
+
+        console.log(res);
+
+        //在逻辑运算中&&的优先级高于1
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
