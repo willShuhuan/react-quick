@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数</title>
+    <script>
+
+        // 1. JavaScript中的函数和数组一样， 都是引用数据类型（对象类型）
+        // 既然是一种数据类型，所以也可以保存到一个变量中
+        //将一个函数保存到一个变量中
+        //将来可以通过变量名称找到函数并执行函数
+        let say = function () {
+            console.log("hello");
+        };
+        say();
+
+
+        //-------------------------------2. console.log-------------------------------
+        /**
+         * 1. 因为console.log()；也是通过() 来调用的，所以log也是 一个函数
+         * 2. log函数的特点
+            可以接收1个或多个参数
+         3.为什么log函数可以接收1个或多个参数
+            内部的实现原理就用到了arguments
+         4. arguments的作用
+            保存所有传递给函数的实参
+         */
+        function getSum() {
+            //注意点：每个函数中都有一个叫做arguments的东东
+            // arguments其实是一个伪数组
+            console.log(arguments);
+            console.log(arguments[0]);//10
+            console.log(arguments[1]);//20
+            console.log(arguments[2]);//30
+
+            let sum = 0;
+            for (let i = 0; i < arguments.length; i++) {
+                sum += arguments[i];
+            }
+            return sum;
+        }
+
+        let sum = getSum(10,20,30);
+        console.log(sum);//60
+
+
+
+        //-------------------------------3. ES6扩展运算符-------------------------------
+        /**
+         1.扩展运算符在等号左边，将剩余的数据打包到一个新的数组中
+         注意点：只能写在最后
+         let [a， b] = [1， 3，5]；a=1；b=[3，5]；
+
+         2.扩展运算符在等号右边，将数组中的数据解开
+         let arr1 = [1，3，5]；
+         let arr2 = [2，4，6]；
+         let arr =[...arr1，...arr2]; let arr =[1，3，5，2，4，6]；
+
+         3.扩展运算符在函数的形参列表中的作用
+         将传递给函数的所有实参打包到一个数组中
+         注意点：和在等号左边一样， 也只能写在形参列表的最后
+         */
+
+        function getSum2(...values){
+            console.log(values);//[10,20]
+        }
+        getSum2(10, 20)
+
+        function getSum3(a,...values){
+            console.log(a);//10
+            console.log(values);//[20,30]
+        }
+        getSum3(10, 20,30)
+
+
+
+        //-------------------------------4. 函数形参默认值-------------------------------
+        function getSum4(a,b) {
+            //此时a和b为undefined
+            //在ES6之前可以通过逻辑运算符来给形参指定默认值//格式：条件A||条件B
+            //如果条件A成立， 那么就返回条件A
+            //如果条件A不成立，无论条件B是否成立，都会返回条件B
+            a = a||"a的默认值";
+            b = b||"b的默认值";
+            console.log(a, b);
+        }
+        getSum4();
+        //从ES6开始， 可以直接在形参后面通过=指定默认值//注意点： ES6开始的默认值还可以从其它的函数中获取
+        function getSum5(a="a的指定默认值",b=getDefault()) {
+            console.log(a, b);
+        }
+        getSum5();
+        function getDefault() {
+            return "获取到b的默认值";
+        }
+
+
+        //-------------------------------5. 函数作为参数和返回值-------------------------------
+        //将函数作为其他函数的参数
+        let sayHello = function(){
+            console.log("say hello world") ;
+        };
+        function test(fn) {
+            fn();
+        }
+        test(sayHello);
+        //将函数作为其他函数的返回值
+        function test2() {
+            let sayHello2 = function(){
+                console.log("2 say hello world") ;
+            };
+            return sayHello2;
+        }
+        let fn = test2();
+        fn();
+
+
+
+        //-------------------------------6. 匿名函数-------------------------------
+        //就是没有名称的函数
+        //注意点：匿名函数不能只定义不使用
+
+        //应用场景
+        //3.1  作为其他函数的参数
+        function test3(fn) {
+            fn();
+        }
+        test3(function () {
+            console.log("匿名函数作为其他函数的参数");
+        })
+        //3.2  作为其他函数的返回值
+        function test4() {
+            return function(){
+                console.log("匿名函数作为其他函数的返回值") ;
+            };
+        }
+        let fn2 = test4();
+        fn2();
+        //3.3  作为一个立即执行的函数
+        //注意点：如果想让匿名函数立即执行，那么必须使用（）将函数的定义包裹起来才可以
+        (function () {
+            console.log("匿名函数作为一个立即执行的函数");
+        })();
+
+        
+        //------------------------------- 7. 箭头函数  -------------------------------
+        /* 1.什么是箭头函数？
+            箭头函数是ES6中新增的一种定义函数的格式
+            目的：就是为了简化定义函数的代码
+
+            2.在ES6之前如何定义函数
+            function 函数名称（形参列表） {需要封装的代码;}
+            let 函数名称 = function（形参列表） {需要封装的代码；}
+
+            3.从ES6开始如何定义函数
+            let 函数名称 =（形参列表）=>{需要封装的代码；}
+
+            4. 箭头函数的注意点
+                4.1 在箭头函数中，如果只有一个形参，那么（）可以省略
+                4.2 在箭头函数中，如果大括号中只有一句代码，那么{}可以省略
+         */
+            function f1(name) {
+                console.log("hello"+name);
+            }
+            // let f2 = (name) =>{
+            //     console.log("hello"+name);
+            // };
+            let f2 = name =>console.log("hello"+name);
+            f1("朋友");
+            f2("同学");
+
+
+        //------------------------------- 8. 递归函数  -------------------------------
+        //需求：要求用户输入密码，判断输入密码是否正确（假设正确密码是123456）
+        //如果正确，输出"欢迎回来”
+        //如果不正确，要求用户重新输入
+
+        /*
+         1.什么是递归函数
+         递归函数就是在函数中自己调用自己
+         递归函数在一定程度上可以实现循环的功能
+         */
+        // function login() {
+        //     let pwd = prompt("请输入密码");
+        //     if (pwd!="123456"){
+        //         login();
+        //     }
+        //     alert("欢迎回来");
+        // }
+        // login();
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域</title>
+    <script>
+
+        //------------------------------- 1. 变量在函数中的作用域  -------------------------------
+        /*
+            1.在JavaScript中{}外面的作用域，我们称之为全局作用域
+            2.在JavaScript中函数后面{}中的的作用域，我们称之为”局部作用域”
+            3.在ES6中只要{}没有和函数结合在一起，那么应该”块级作用域”
+            4.块级作用域和局部作用域区别
+                4.1 在块级作用域中通过var定义的变量是全局变量
+                4.2 在局部作用域中通过var定义的变量是局部变量
+            5.无论是在块级作用域还是在局部作用域，省略变量前面的let或者var就会变成一个全局变量
+         */
+        //块级作用域
+        // {
+        //     //块级作用域
+        // }
+        // while (false){
+        //     //块级作用域
+        // }
+        // switch (condition) {
+        //     //块级作用域
+        // }
+        // function f() {
+        //     //局部作用域
+        // }
+
+
+        {
+            //块级作用域
+            // var num = 123;//全局变量
+            // let num = 123;//局部变量
+            num = 678;//全局变量
+        }
+        console.log(num);//678
+
+        function f() {
+            // var value = 456;//局部变量,下方log编译错误
+            // let value = 456;//局部变量,下方log编译错误
+            value = 456;//全局变量,下方log编译正常打印456
+        }
+        f();
+        console.log(value);//456
+
+        if (true){
+            var number = 666;//块级作用域
+        }
+        console.log(number);//666
+
+
+        //练习
+        /*
+        ①
+        var num1 = 123； //全局变量
+        function test（）{
+            var num2 = 456； //局部变量
+        }
+        {
+            var num3 = 789； //全局变量
+            let num3 = 789;  //局部变量
+        }
+        function test（）{
+            num4 = 666； //全局变量
+        }
+
+        ②
+        下面代码是否会报错
+        {
+            var num = 123 ；
+            {
+                var num=456；//不会报错
+            }
+        }
+        console.log(num2);
+        var num2 = 123;//不会报错
+
+        {
+            let num = 123 ；
+            {
+                //在不同的作用域范围内，可以出现同名变量
+                let num=456；//不会报错
+            }
+        }
+        console.log(num3);
+        let num3 = 123;//会报错
+
+        ③
+        //注意点：只要出现了let，在相同的作用域内，就不能出现同名的变量
+        let num = 123；
+        var num = 456；//会报错
+
+        var num = 123；
+        let num = 456；//会报错
+        */
+
+
+        //------------------------------- 2. 作用域链  -------------------------------
+        /*
+        注意点：初学者在研究”作用域链”的时候最好将ES6之前和ES6分开研究
+        1.需要明确：
+            1. ES6之前定义变量通过var
+            2. ES6之前没有块级作用域，只有全局作用域和局部作用域
+            3. ES6之前函数大括号外的都是全局作用域
+            4. ES6之前函数大括号中的都是局部作用域
+
+            ES6之后
+            1. ES6定义变量通过let
+            2. ES6除了全局作用域、局部作用域以外，还新增了块级作用域
+            3. ES6虽然新增了块级作用域，但是通过1et定 义变量并无差异（都是局部变量）
+
+
+        2.ES6之前作用域链
+            2.1.全局作用域我们又称之为0级作用域
+            2.2.定义函数开启的作用域就是1级/2级/3级/...作用域
+            2.3.JavaScript会将这些作用域链接在一起形成一个链条，这个链条就是作用域链
+                0一一> 1 一一> 2 一一> 3 一一> 4
+            2.4.除0级作用域以外，当前作用域级别等于上一级+1
+
+        3.变量在作用域链查找规则
+            3.1先在当前找，找到就使用当前作用域找到的
+            3.2如果当前作用域中没有找到，就去上一级作用域中查找
+            3.3以此类推直到0级为止，如果0级作用域还没找到，就报错
+        */
+
+        //ES6之前
+        //全局作用域/0级作用域
+        var num = 123;
+        function f1() {
+            //1级作用域
+            var num = 456;
+            function f2() {
+                //2级作用域
+                var num = 789;
+                console.log(num);//789
+            }
+            f2();
+        }
+        f1();
+
+        //ES6之后
+        let num2 = 123;
+        {
+            //1级作用域
+            let num2 = 456;
+            function f3() {
+                //2级作用域
+                let num2 = 789;
+                console.log(num2);//789
+            }
+            f3();
+        }
+
+        //------------------------------- 3. 预解析  -------------------------------
+        /*
+        1.什么是预解析？
+        浏览器在执行JS代码的时候会分成两部分操作：预解析以及逐行执行代码也就是说浏览器不会直接执行代码，而是加工处理之后再执行，
+        这个加工处理的过程，我们就称之为预解析
+
+        2.预解析规则
+        2.1将变量声明和函数声明提升到当前作用域最前面
+        2.2将剩余代码按照书写顺序依次放到后面
+
+        3.注意点
+        通过let定义的变量不会被提升（不会被预解析）
+        */
+
+        /*
+        //预解析之前
+        console.log（num）；//undefined
+        var num = 123；
+        //预解析之后
+        var num ；
+        console.log（num）；
+        num = 123；
+        //不会预解析之前
+        console. log（num）；//报错
+        let num = 456；
+         */
+
+        //ES6之前定义函数的格式
+        say();
+        //ES6之前这种定义函数的格式，是会被预解析的
+        function say(){
+            console.log("hello world");
+        }
+        //预解析之后
+        /*
+         function say(){
+            console.log("hello world");
+        }
+        say();
+        */
+
+        // say2(); say2 is not a function
+        //如果将函数赋值给个var定义的变量，那么函数不会被预解析，只有变量会被预解析
+        var say2 = function () {
+            console.log("hello world");
+        };
+        /*
+        var say2;
+        say2();
+        say2 = function () {
+            console.log("hello world");
+        }
+        */
+
+        //ES6之后定义函数的格式
+        // say3();// let定义的变量不会被预解析
+        let say3 = ()=>{
+            console.log("hello world");
+        };
+
+
+        //练习1
+        var m = 123;
+        fun();
+        function fun() {
+            console.log(m);//undefined
+            var m = 666;
+        }
+        //预解析过程
+        /*
+        var num;
+        function fun(){
+            var num ;
+            console.log (num);
+            num = 666
+        }
+        num = 123;
+        fun ();
+        */
+
+        //练习2
+        // var a = 666;
+        // test();
+        // function test(){
+        //     var b=777;
+        //     console.log(ạ);//undefined
+        //     console.log(b);//777
+        //     console.log(ç);//报错
+        //     var ạ = 888;
+        //     let c = 999;
+        // }
+        //预解析
+        /*
+        var a;
+        function test(){
+            var b;
+            var a;
+            b = 777;
+            console.log(ạ);
+            console.log(b);
+            console.log(ç);
+            a = 888;
+            let c = 999;
+        }
+        a = 666;
+        test();
+         */
+
+
+        //练习3
+        //在ES6之前没有块级作用域，并且没有讲这两个函数定义到其它的函数中，
+        // 所以这两个函数应该属于全局作用域
+        // 注意点:
+        // 1.在高级浏览器中，不会对{}中定义的函数进行提升
+        // 2.只有在低级浏览器中，才会按照正常的方式解析
+        if (true){
+            function demo() {
+                console.log("demo1");
+            }
+        } else {
+            function demo() {
+                console.log("demo2");
+            }
+        }
+        demo();//执行结果 demo1
+        //预解析（低级浏览器才会这样解析）
+        /*
+            function demo() {
+                console.log("demo1");
+            }
+            function demo() {
+                console.log("demo2");
+            }
+            if(true){}else{}
+            demo();
+         */
+
+        //练习4
+        //注意点：如果变量名称和函数名称同名，那么函数的优先级高于变量
+        //在企业开发中千万不要让变量名称和函数名称重名
+        console.log(val);//输出函数的定义
+        var val = 123;
+        function val() {
+            console.log("fn val");
+        }
+        console.log(val);//输出123
+        /*
+        预解析
+        function val() {
+            console.log("fn val");
+        }
+        console.log(val);
+        var val;
+        val = 123;
+        console.log(val);
+         */
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
